@@ -4,9 +4,11 @@ const Footer = () => {
     const today = new Date();
     const year = today.getFullYear();
     return (
-        <div className='text-center mt-5'>
-            <p><small>copyright © {year}</small></p>
+      <div className="container-full bg-dark mt-4 py-3">
+            <div className='text-center text-light fs-5'>
+            <p><small>Copyright © {year}</small></p>
         </div>
+      </div>
     );
 };
 

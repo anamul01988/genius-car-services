@@ -13,7 +13,7 @@ const Header = () => {
    
       <>
        <div className="container-full">
-       <Navbar bg="primary" variant="dark">
+       <Navbar bg="dark" variant="dark">
           <Container>
             <Navbar.Brand href="#home">
                <img src={logo} height="30" alt=""></img>
@@ -23,11 +23,14 @@ const Header = () => {
               <Nav.Link href="/about">About</Nav.Link>
               <Nav.Link href="">Pricing</Nav.Link>
               {/* <Nav.Link href="/login">Log In</Nav.Link> */}
-              <Nav.Link href="/signup">Sign Up</Nav.Link>
+              {/* <Nav.Link href="/signup">Sign Up</Nav.Link> */}
               {
                 user ?
                  <button onClick={logout}>Log out</button>: 
-                <Nav.Link href="/login">Log In</Nav.Link>
+                 <>
+                    <Nav.Link href="/login">Log In</Nav.Link>
+                <Nav.Link href="/signup">Sign Up</Nav.Link>
+                 </>
               }
             </Nav>
           </Container>
