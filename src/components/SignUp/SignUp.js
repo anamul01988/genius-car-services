@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import auth from '../../firebase_init';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
@@ -7,15 +9,53 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
+
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        // loading,
+        // error
+      ] = useCreateUserWithEmailAndPassword(auth);
+
+      if(user){
+          navigate('/')
+      }
+
+    const handleEmailBlur = (event) => {
+        setEmail(event.target.value);
+      };
+      const handlePasswordBlur = (event) => {
+        setPassword(event.target.value);
+      };
+      const handleConfirmPasswordBlur = (event) => {
+        setConfirmPassword(event.target.value);
+      };
+      const handleCreateUser = (event) => {
+        //   console.log(event)
+        event.preventDefault();
+        if (password !== confirmPassword) {
+          setError("your two passwords didnt match");
+          return;
+        }
+        if (password.length < 6) {
+          setError("password must be 6 character  or longer");
+          return;
+        }
+    
+        createUserWithEmailAndPassword(email, password);
+      };
+
+    
     return (
         <div className="form-container">
         <div className="">
           <h2 className="form-title">Sign Up</h2>
-          <form action="">
+          <form onSubmit={handleCreateUser} action="">
             <div className="input-groupp">
               <label htmlFor="email">Email</label>
               <input
-            
+                onBlur={handleEmailBlur}
                 type="email"
                 name="email"
                 id=""
@@ -26,7 +66,7 @@ const SignUp = () => {
             <div className="input-groupp">
               <label htmlFor="password">Password</label>
               <input
-            
+               onBlur={handlePasswordBlur}
                 type="password"
                 name="password"
                 id=""
@@ -37,7 +77,7 @@ const SignUp = () => {
             <div className="input-groupp">
               <label htmlFor="confirm-password">Confirm Password</label>
               <input
-            
+                 onBlur={handleConfirmPasswordBlur}
                 type="password"
                 name=" confirm-password"
                 id=""
